@@ -24,9 +24,15 @@
 ## Data rules
 - Never edit the raw IPUMS file. Make changes on a copy.
 - Use the IPUMS codebook to check what each variable means.
-- Weight results with the CPS survey weight (ASECWT) when you report totals or averages.
+- Use asecwt for person-level survey weights. Use it in every table and chart.
+- Weight results with asecwt when you report totals or averages.
 - Check for missing and top-coded values (like 99999999) before any math.
 - Don't commit large data files or anything with restricted data terms. IPUMS data can't be redistributed.
+
+## Chart rules
+- Before any chart, print the weighted table it will show, with labels and 1 decimal.
+- A chart shows exactly the printed table, and axis labels give units.
+- All y-axis scales and labels should include 0.
 
 ## How to explain changes
 - Explain every change in plain English.
