@@ -36,6 +36,7 @@
 
 ## Git rules
 - Work on the designated feature branch.
+- Always sync to main so you have the latest file in the repo.
 - Commit with a clear message that says what changed.
 - When the work is done, push the branch and merge it into main.
 - Don't open pull requests.
