@@ -10,6 +10,7 @@ Format: what happened, then the rule for next time.
 - You set chart rules: print the weighted table first, chart matches it, units on axis labels, y-axis includes 0. Rule: follow the Chart rules in CLAUDE.md.
 - You want the unweighted number of people (n) in the group tables. Rule: tables 3 to 10 show n for women and men next to each gap (see Planned tables in CLAUDE.md).
 - You want the notebook to look like the course sample notebook (Python Workshop Week 10): plain short cells, a Variable | Meaning table, labels with `.map()` plus a crosstab check, and a **Question.** line in each section. I over-built it first with extra dictionaries and print loops. Rule: copy the sample's style and keep it simple.
+- You gave me your own text for the write-up cells and said not to change any words. Rule: paste it exactly, never reword or fix it, keep it when I rebuild the notebook, and raise any concern in my reply.
 
 ## Code errors and causes
 
