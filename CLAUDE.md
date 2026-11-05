@@ -52,7 +52,7 @@ Figure 8 (right after Table 8b): a horizontal dumbbell chart of Table 8b as prin
 
 Figure 9 (right after Table 9): one line chart of Table 9 as printed (1 decimal): Private (blue) and Government (orange), with the space between the two lines lightly shaded (`fill_between`), and All (gray, dashed), income years on the x-axis. The y-axis starts at 0 and goes high enough for every value. A thin dashed line at 100 is labeled "No gap". The legend is titled "Class of worker". The source note says self-employed workers are not included. It is saved to My Drive as `fig9_gap_by_class.png`. A "Write-up (50-100 words)" cell follows it.
 
-Write-ups: the "Write-up (50-100 words)" cell after each figure holds the user's own text, a Question and a Finding, under that heading. Never reword, shorten, fix or re-order it, and keep it when the notebook is rebuilt. If something in it looks wrong, say so in the reply and leave the words as they are. The Figure 1 question is still the placeholder "[ADD YOUR QUESTION]" until the user writes it.
+Write-ups: the "Write-up (50-100 words)" cell after each figure holds the user's own text under that heading. Figure 1's text has no Question line, and none of the nine has a "Finding:" label. Never reword, shorten, fix, re-order or add labels to it, and keep it when the notebook is rebuilt. If something in it looks wrong, say so in the reply and leave the words as they are.
 
 Figure 1 (right after Table 1): a line chart of the two "Women as % of men" columns of Table 1, mean (solid blue) and median (dashed orange), income years on the x-axis, y-axis from 0 to 100. It is saved to My Drive as `fig1_gap_ratio.png`. A "Write-up (50-100 words)" cell follows it.
 
