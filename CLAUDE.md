@@ -72,10 +72,10 @@ Load only the columns we need (use `usecols`), because the file is 1.6 GB.
 - Trimming: one set of cutoffs per year, from all workers, weighted with `asecwt`. Use it in every table, including the full-time sample (user confirmed).
 - Hours: `hrswk` is usual hours worked per week last year.
 - Race flags: White and Black mean non-Hispanic.
+- Missing group values (`raceeth`, `occ6`, `metro`): keep these rows in tables 1 and 2. Leave a row out only of the table grouped by the column it is missing. Print under each table how many rows were left out (user confirmed). The trim cutoffs still come from all workers.
 - Table 11: keep 1977 to 1985, with a note that 12.4% to 17.1% of rows have no metro answer in those years (user decided).
 
 ### Open questions
-- Missing group values (`raceeth`, `occ6`, `metro`): plan, not yet confirmed. Keep these rows in tables 1 and 2, and leave them out only of the table grouped by that column. Print how many rows were left out.
 - Top codes: check the 4,398 rows at 99 hours, and the extremes of `hrwage_real`, before any math.
 
 ## Code rules
