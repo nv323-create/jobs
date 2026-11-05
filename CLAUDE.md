@@ -18,7 +18,7 @@
 - Report both the median and the mean wage, weighted with `asecwt`.
 
 ### Planned tables
-All tables are by year. Tables 3 to 11 also show the unweighted number of women and men (n) behind each gap, so thin cells are easy to spot.
+All tables are by year. Tables 3 to 10 also show the unweighted number of women and men (n) behind each gap, so thin cells are easy to spot.
 1. Hourly wage of full-time workers by sex, with the gap. The mean is the main measure (men minus women in dollars, women as % of men). The median and its gap are shown for reference. The unweighted n of men and women is printed under the table.
 2. Gap for full-time, part-time and all workers. Women as % of men (weighted means) for each group, full-time minus part-time in percentage points, and the share of women and of men who work part-time. Part-time means `fulltime == 0` inside `kept`. The unweighted n of men and women in each group and year is printed under the table, with the smallest count in any cell.
 3. Gap by age group.
@@ -26,12 +26,11 @@ All tables are by year. Tables 3 to 11 also show the unweighted number of women 
 5. Gap by race and ethnicity.
 6. Gap by marital status.
 7. Gap by number of children.
-8. Gap by child under 5.
-9. Gap by occupation.
-10. Gap by class of worker.
-11. Gap by metro vs non-metro.
+8. Gap by occupation.
+9. Gap by class of worker.
+10. Gap by metro vs non-metro.
 
-Tables 3 to 11 are built with the notebook function `gap_by(group_col, order)`. It uses `kept_ft` (full-time workers inside the trim cutoffs), computes women's weighted mean hourly wage as % of men's for each year and group, and leaves out rows with a missing group value. It returns two tables: the gap (years down the rows, groups across, in the order given) and the unweighted number of men and women in each year and group. Under each table, print the counts, the smallest count in any cell, and how many rows were left out. Table 3 (age group) uses `agegrp_label` in the order 16-24, 25-34, 35-44, 45-54, 55-64, and has a last column, All ages, which is the full-time mean gap from Table 1.
+Tables 3 to 10 are built with the notebook function `gap_by(group_col, order)`. It uses `kept_ft` (full-time workers inside the trim cutoffs), computes women's weighted mean hourly wage as % of men's for each year and group, and leaves out rows with a missing group value. It returns two tables: the gap (years down the rows, groups across, in the order given) and the unweighted number of men and women in each year and group. Under each table, print the counts, the smallest count in any cell, and how many rows were left out. Table 3 (age group) uses `agegrp_label` in the order 16-24, 25-34, 35-44, 45-54, 55-64, and has a last column, All ages, which is the full-time mean gap from Table 1. Table 8 (occupation) uses `occ6_label` in the order Managers and professionals, Technical, sales and admin, Service, Farming, forestry and fishing, Craft and repair, Operators and laborers, and has a last column, All, which is the full-time mean gap from Table 1 (it includes the rows with missing occupation, which the six groups leave out). Under it, print the unweighted counts, the smallest count in any cell, and how many rows were left out for missing occupation. Some groups may have few women or few men in some years.
 Table 4 (education) uses `educ5_label` in the order None/preschool, Less than HS, High school, Some college, Bachelor's+, and has a last column, All education, which is the full-time mean gap from Table 1. Under it, print the unweighted counts and, for each education group, the smallest count of women and of men across all years (with the year). Some groups, like None/preschool, may be thin in some years.
 Table 5 (race and ethnicity) uses `raceeth_label` in the order White, Black, Hispanic, Other, and has a last column, All races, which is the full-time mean gap from Table 1. Rows with missing race are left out of the four groups but are in All races, so the two can differ slightly. Under it, print the unweighted counts, the smallest count in any cell, and how many rows were left out for missing race.
 Table 6 (marital status) uses `marst3_label` in the order Married, Previously married, Never married, and has a last column, All, which is the full-time mean gap from Table 1. Under it, print the unweighted counts, the smallest count in any cell, and how many rows were left out for a missing group.
@@ -77,7 +76,7 @@ The file has 85 columns and 3,763,273 rows, with all 50 income years present (55
 | `occ6`, `occ6_label` | 1 = Managers and professionals, 2 = Technical, sales and admin, 3 = Service, 4 = Farming, forestry and fishing, 5 = Craft and repair, 6 = Operators and laborers. 19,838 rows (0.5%) are missing: NIU, military (905), 999, and anything else. By year it is 0.0% in 1976 to 1983, then 0.1% to 1.0%. | Clear |
 | `classwkr3`, `classwkr3_label` | 1 = Private, 2 = Government. The name says 3 groups. The third was self-employed, removed on purpose. No missing values. | Clear |
 | `region4`, `region4_label` | Census region, 4 groups. Not in the planned tables, so do not load it. | Clear |
-| `metro`, `metro_label` | 1 = In a metro area, 0 = Not in a metro area. 122,797 rows (3.3%) are missing. By year: 0.0% in 1976, 12.4% to 17.1% in 1977 to 1985, 1.6% to 1.9% in 1986 to 1995, and 0.3% to 1.1% in 1996 to 2025. So table 11 is weak for 1977 to 1985. | Check |
+| `metro`, `metro_label` | 1 = In a metro area, 0 = Not in a metro area. 122,797 rows (3.3%) are missing. By year: 0.0% in 1976, 12.4% to 17.1% in 1977 to 1985, 1.6% to 1.9% in 1986 to 1995, and 0.3% to 1.1% in 1996 to 2025. So table 10 is weak for 1977 to 1985. | Check |
 | `*_label` columns | Text label for the code in the column with the same stem. | Clear |
 | `female_0`, `female_1`, `fulltime_0`, `fulltime_1`, and every other `name_number` column | 0/1 dummy columns, one per code. They repeat what the code column already says. Do not load them. | Clear |
 
@@ -94,7 +93,7 @@ Load only the columns we need (use `usecols`), because the file is 1.6 GB.
 - Weighted percentile (used for the trim cutoffs and the medians): sort by value, add up `asecwt`, take the first value where the running share reaches the percentile. Keep wages from the 1st to the 99th percentile, ends included. Defined as `wquantile` in the notebook.
 - Race flags: White and Black mean non-Hispanic.
 - Missing group values (`raceeth`, `occ6`, `metro`): keep these rows in tables 1 and 2. Leave a row out only of the table grouped by the column it is missing. Print under each table how many rows were left out (user confirmed). The trim cutoffs still come from all workers.
-- Table 11: keep 1977 to 1985, with a note that 12.4% to 17.1% of rows have no metro answer in those years (user decided).
+- Table 10: keep 1977 to 1985, with a note that 12.4% to 17.1% of rows have no metro answer in those years (user decided).
 - Label columns: do not load the `*_label` columns (they use a lot of memory). Labels live in the notebook setup cell, written like the course sample notebook: `df["x_label"] = df["x"].map({...})`, with a `pd.crosstab` check under each one. The meanings are in a Variable | Meaning table in the Setup text. If a code changes, change it in both places.
 - Summary table: one weighted row for every column we load, including coded columns like `educ5` where the mean has no meaning by itself (user agreed).
 

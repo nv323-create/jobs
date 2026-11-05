@@ -8,7 +8,7 @@ Format: what happened, then the rule for next time.
 - I guessed uppercase IPUMS column names (YEAR, ASECWT) and they were wrong. Rule: all variables are lower case. Ask or check before guessing column names.
 - You want me to have the latest repo files. Rule: sync to main (git pull origin main) before starting work.
 - You set chart rules: print the weighted table first, chart matches it, units on axis labels, y-axis includes 0. Rule: follow the Chart rules in CLAUDE.md.
-- You want the unweighted number of people (n) in the group tables. Rule: tables 3 to 11 show n for women and men next to each gap (see Planned tables in CLAUDE.md).
+- You want the unweighted number of people (n) in the group tables. Rule: tables 3 to 10 show n for women and men next to each gap (see Planned tables in CLAUDE.md).
 - You want the notebook to look like the course sample notebook (Python Workshop Week 10): plain short cells, a Variable | Meaning table, labels with `.map()` plus a crosstab check, and a **Question.** line in each section. I over-built it first with extra dictionaries and print loops. Rule: copy the sample's style and keep it simple.
 
 ## Code errors and causes
