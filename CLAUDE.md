@@ -20,7 +20,7 @@
 ### Planned tables
 All tables are by year. Tables 3 to 11 also show the unweighted number of women and men (n) behind each gap, so thin cells are easy to spot.
 1. Hourly wage of full-time workers by sex, with the gap. The mean is the main measure (men minus women in dollars, women as % of men). The median and its gap are shown for reference. The unweighted n of men and women is printed under the table.
-2. Gap for full-time workers vs all workers.
+2. Gap for full-time workers vs all workers. Women as % of men (weighted means) for each group, the difference (all minus full-time) in percentage points, and the share of women and of men who work part-time. The unweighted n of men and women in each group is printed under the table.
 3. Gap by age group.
 4. Gap by education.
 5. Gap by race and ethnicity.
