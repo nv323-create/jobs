@@ -15,3 +15,4 @@ Format: what happened, then the rule for next time.
 
 - I gave a Colab cell that read a Drive file but did not mount Drive, so it threw FileNotFoundError. Rule: every cell I hand over must run in a fresh Colab session, so include `drive.mount` before any `/content/drive` path.
 - My check cell left out `educ5`, `marst3`, `occ6`, and `child_u5`, so their codes never printed. Rule: before I hand over a check cell, list every column the planned tables use and cover all of them.
+- An edit script of mine failed (its text did not match), but the next line committed anyway, so a commit went out without that change. Rule: chain edit scripts and `git commit` with `&&`, and run `git pull` and read `git log` right before I push, because another run can commit in between.
