@@ -32,16 +32,41 @@ All tables are by year.
 11. Gap by metro vs non-metro.
 
 ### Columns in the data
-Not checked yet. I could not read the file header from Drive (the file is too big for the Drive connector). To fill this in, run `print(list(data.columns))` in Colab and paste the output. Then list each column here with what it means. Ask the user about any column that is unclear. Do not guess names or meanings.
+Header read in Colab on 2026-11-05. The file has 85 columns. "Clear" means the name is plain. "Check" means I am not sure of the meaning, so do not use it until it is confirmed. The code to label pairs for coded columns are not listed yet. Print them in Colab first.
 
-| Column | What it means |
-|---|---|
-| (to fill in) | |
+| Column | What it means | Status |
+|---|---|---|
+| `year` | Year of the observation. The ASEC asks about income in the year before the survey, so check whether this is the survey year or the income year. | Check |
+| `period`, `period_label` | A period group with 6 values. Probably blocks of years. | Check |
+| `asecwt` | Person-level survey weight. Use it in every table and chart. | Clear |
+| `age` | Age in years. | Clear |
+| `agegrp`, `agegrp_label` | Age group, 5 values. Cutoffs not known yet. | Check |
+| `female`, `female_label` | Sex. Used for the gap. The label column shows which code is which. | Clear |
+| `fulltime`, `fulltime_label` | Full-time flag (1 or 0). The hours and weeks cutoffs are not known yet. | Check |
+| `wkswork` | Weeks worked last year, going by the name. | Check |
+| `hrswk` | Hours worked per week. Not known if usual or actual. | Check |
+| `incwage_real` | Yearly wage and salary income, in real dollars. The base year is not known. | Check |
+| `wkearn_real` | Weekly earnings, in real dollars. The base year is not known. | Check |
+| `hrwage_real` | Hourly wage, in real dollars. The base year is not known (we need 2025). Not known if it is already trimmed. | Check |
+| `educ5`, `educ5_label` | Education, 5 groups. | Clear |
+| `raceeth`, `raceeth_label` | Race and ethnicity, 4 groups. Use this one for the race table. | Clear |
+| `hispanic`, `white`, `black`, `other_race` | Probably 0/1 flags that sit behind `raceeth`. Not known if they overlap. | Check |
+| `marst3`, `marst3_label` | Marital status, 3 groups. | Clear |
+| `nchild_cat`, `nchild_cat_label` | Number of children, in groups 0 to 3. Not known if 3 means "3 or more". | Check |
+| `child_u5`, `child_u5_label` | Has a child under 5 (1 or 0). | Clear |
+| `occ6`, `occ6_label` | Occupation, 6 groups. | Clear |
+| `classwkr3`, `classwkr3_label` | Class of worker, 3 groups going by the name. Only `classwkr3_1` and `classwkr3_2` exist as 0/1 columns, so check how many values it has. | Check |
+| `region4`, `region4_label` | Census region, 4 groups. Not in the planned tables. | Clear |
+| `metro`, `metro_label` | Metro vs non-metro (1 or 0). The label column shows which is which. | Clear |
+| `*_label` columns | Text label for the code in the column with the same stem. | Clear |
+| `female_0`, `female_1`, `fulltime_0`, `fulltime_1`, and every other `name_number` column | 0/1 dummy columns, one per code. They repeat what the code column already says. Do not load them. | Clear |
+
+Load only the columns we need (use `usecols`), because the file is 1.6 GB.
 
 ### Open questions
-- How is "full-time" defined? Check whether the file already has a full-time flag, and what hours and weeks it uses.
-- Is the wage already in 2025 dollars, or do we need to adjust it with a CPI column or table?
-- How is the hourly wage built (yearly wage income divided by weeks times usual hours)? Check which variables the file has for it.
+- Full-time: the file has a `fulltime` flag. Find out what hours and weeks it uses (look at the min of `hrswk` and `wkswork` when `fulltime` is 1).
+- 2025 dollars: the file has `incwage_real`, `wkearn_real`, and `hrwage_real`. Find out the base year. If it is not 2025, adjust it ourselves.
+- Hourly wage: `hrwage_real` is already built. Find out how (yearly wage divided by weeks times hours?) and check it against the other columns.
 - Check for top-coded and missing values on every wage, hours, and weeks variable before any math.
 
 ## Code rules
