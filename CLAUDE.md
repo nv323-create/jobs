@@ -33,6 +33,8 @@ All tables are by year. Tables 3 to 11 also show the unweighted number of women 
 
 Figure 1 (right after Table 1): a line chart of the two "Women as % of men" columns of Table 1, mean (solid blue) and median (dashed orange), income years on the x-axis, y-axis from 0 to 100. It is saved to My Drive as `fig1_gap_ratio.png`. A "Write-up (50-100 words)" cell with empty Question and Finding lines follows it.
 
+Figure 2 (right after Table 2): one figure with two side-by-side panels that plot the columns of Table 2 as printed (1 decimal). Left: the full-time and all-workers "Women as % of men" lines (blue solid, orange dashed). Right: the share of women and of men working part-time (violet solid, aqua dashed). Both y-axes run from 0 to 100, and both x-axes are income years. It is saved to My Drive as `fig2_fulltime_vs_all.png`. A "Write-up (50-100 words)" cell follows it.
+
 ### Columns in the data
 The file has 85 columns and 3,763,273 rows, with all 50 income years present (55,270 to 101,128 rows a year). "Clear" means the meaning is settled. "Check" means something is still unknown, so do not rely on it until it is fixed. Codes were printed in Colab on 2026-11-05.
 
