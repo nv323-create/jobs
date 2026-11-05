@@ -74,7 +74,7 @@ Load only the columns we need (use `usecols`), because the file is 1.6 GB.
 - Race flags: White and Black mean non-Hispanic.
 - Missing group values (`raceeth`, `occ6`, `metro`): keep these rows in tables 1 and 2. Leave a row out only of the table grouped by the column it is missing. Print under each table how many rows were left out (user confirmed). The trim cutoffs still come from all workers.
 - Table 11: keep 1977 to 1985, with a note that 12.4% to 17.1% of rows have no metro answer in those years (user decided).
-- Label columns: do not load the `*_label` columns (they use a lot of memory). Add labels in the notebook with a dictionary built from the codes listed above (user agreed).
+- Label columns: do not load the `*_label` columns (they use a lot of memory). Labels live in the notebook setup section (`code_labels` and `variable_titles`), and the notebook adds a `*_label` column for each coded variable on its working copy (user agreed). If a code changes, change it there.
 - Summary table: one weighted row for every column we load, including coded columns like `educ5` where the mean has no meaning by itself (user agreed).
 
 ### Open questions
