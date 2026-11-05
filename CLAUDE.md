@@ -71,6 +71,7 @@ Load only the columns we need (use `usecols`), because the file is 1.6 GB.
 - Self-employed: removed on purpose, so class of worker has two groups (Private, Government).
 - Trimming: one set of cutoffs per year, from all workers, weighted with `asecwt`. Use it in every table, including the full-time sample (user confirmed).
 - Hours: `hrswk` is usual hours worked per week last year.
+- Weighted percentile (used for the trim cutoffs and the medians): sort by value, add up `asecwt`, take the first value where the running share reaches the percentile. Keep wages from the 1st to the 99th percentile, ends included. Defined as `wquantile` in the notebook.
 - Race flags: White and Black mean non-Hispanic.
 - Missing group values (`raceeth`, `occ6`, `metro`): keep these rows in tables 1 and 2. Leave a row out only of the table grouped by the column it is missing. Print under each table how many rows were left out (user confirmed). The trim cutoffs still come from all workers.
 - Table 11: keep 1977 to 1985, with a note that 12.4% to 17.1% of rows have no metro answer in those years (user decided).
