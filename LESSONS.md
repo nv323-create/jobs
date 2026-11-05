@@ -11,4 +11,4 @@ Format: what happened, then the rule for next time.
 
 ## Code errors and causes
 
-(none yet)
+- I gave a Colab cell that read a Drive file but did not mount Drive, so it threw FileNotFoundError. Rule: every cell I hand over must run in a fresh Colab session, so include `drive.mount` before any `/content/drive` path.
