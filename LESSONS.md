@@ -12,3 +12,4 @@ Format: what happened, then the rule for next time.
 ## Code errors and causes
 
 - I gave a Colab cell that read a Drive file but did not mount Drive, so it threw FileNotFoundError. Rule: every cell I hand over must run in a fresh Colab session, so include `drive.mount` before any `/content/drive` path.
+- My check cell left out `educ5`, `marst3`, `occ6`, and `child_u5`, so their codes never printed. Rule: before I hand over a check cell, list every column the planned tables use and cover all of them.

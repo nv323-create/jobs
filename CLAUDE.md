@@ -11,9 +11,9 @@
 ## Project
 - Question: How much has the gender wage gap closed in the US since 1976, and for whom?
 - Data file: `jobs_assignment_data_20261104.csv`, in the root of My Drive. In Colab the path is `/content/drive/My Drive/jobs_assignment_data_20261104.csv`. The file is about 1.6 GB, so read only the columns we need.
-- Data content: CPS ASEC 1976-2025 from IPUMS. Ages 16-64, worked last year, positive wages. Weight: `asecwt`.
-- Main sample: full-time workers.
-- Hourly wage: in 2025 dollars. Trim the bottom 1% and top 1% within each year, with men and women together (one cutoff per year, not one per sex).
+- Data content: CPS ASEC 1976-2025 from IPUMS. Ages 16-64, worked last year, positive wages. Weight: `asecwt`. The `year` column is the income year (the year the wages were earned).
+- Main sample: full-time workers. Full-time means 35 or more hours a week (the IPUMS definition). The flag is `fulltime`. The flag has no weeks rule.
+- Hourly wage: in 2025 dollars. The `_real` wage columns are already in 2025 dollars. Trim the bottom 1% and top 1% within each year, with men and women together (one cutoff per year, not one per sex).
 - Gap: women's hourly wage as a % of men's. Also report men minus women in dollars.
 - Report both the median and the mean wage, weighted with `asecwt`.
 
@@ -32,42 +32,49 @@ All tables are by year.
 11. Gap by metro vs non-metro.
 
 ### Columns in the data
-Header read in Colab on 2026-11-05. The file has 85 columns. "Clear" means the name is plain. "Check" means I am not sure of the meaning, so do not use it until it is confirmed. The code to label pairs for coded columns are not listed yet. Print them in Colab first.
+The file has 85 columns and 3,763,273 rows. "Clear" means the meaning is settled. "Check" means something is still unknown, so do not rely on it until it is fixed. Codes were printed in Colab on 2026-11-05.
 
 | Column | What it means | Status |
 |---|---|---|
-| `year` | Year of the observation. The ASEC asks about income in the year before the survey, so check whether this is the survey year or the income year. | Check |
-| `period`, `period_label` | A period group with 6 values. Probably blocks of years. | Check |
+| `year` | Income year, 1976 to 2025. | Clear |
+| `period`, `period_label` | 1 = 1970s, 2 = 1980s, 3 = 1990s, 4 = 2000s, 5 = 2010s, 6 = 2020s. The data starts in 1976, so the 1970s group is 1976 to 1979 only. | Clear |
 | `asecwt` | Person-level survey weight. Use it in every table and chart. | Clear |
 | `age` | Age in years. | Clear |
-| `agegrp`, `agegrp_label` | Age group, 5 values. Cutoffs not known yet. | Check |
-| `female`, `female_label` | Sex. Used for the gap. The label column shows which code is which. | Clear |
-| `fulltime`, `fulltime_label` | Full-time flag (1 or 0). The hours and weeks cutoffs are not known yet. | Check |
-| `wkswork` | Weeks worked last year, going by the name. | Check |
-| `hrswk` | Hours worked per week. Not known if usual or actual. | Check |
-| `incwage_real` | Yearly wage and salary income, in real dollars. The base year is not known. | Check |
-| `wkearn_real` | Weekly earnings, in real dollars. The base year is not known. | Check |
-| `hrwage_real` | Hourly wage, in real dollars. The base year is not known (we need 2025). Not known if it is already trimmed. | Check |
-| `educ5`, `educ5_label` | Education, 5 groups. | Clear |
-| `raceeth`, `raceeth_label` | Race and ethnicity, 4 groups. Use this one for the race table. | Clear |
-| `hispanic`, `white`, `black`, `other_race` | Probably 0/1 flags that sit behind `raceeth`. Not known if they overlap. | Check |
-| `marst3`, `marst3_label` | Marital status, 3 groups. | Clear |
-| `nchild_cat`, `nchild_cat_label` | Number of children, in groups 0 to 3. Not known if 3 means "3 or more". | Check |
-| `child_u5`, `child_u5_label` | Has a child under 5 (1 or 0). | Clear |
-| `occ6`, `occ6_label` | Occupation, 6 groups. | Clear |
-| `classwkr3`, `classwkr3_label` | Class of worker, 3 groups going by the name. Only `classwkr3_1` and `classwkr3_2` exist as 0/1 columns, so check how many values it has. | Check |
-| `region4`, `region4_label` | Census region, 4 groups. Not in the planned tables. | Clear |
-| `metro`, `metro_label` | Metro vs non-metro (1 or 0). The label column shows which is which. | Clear |
+| `agegrp`, `agegrp_label` | 1 = 16-24, 2 = 25-34, 3 = 35-44, 4 = 45-54, 5 = 55-64. | Clear |
+| `female`, `female_label` | 0 = Male, 1 = Female. No missing values. | Clear |
+| `fulltime`, `fulltime_label` | 1 = full-time, 0 = not. In the data, `hrswk` is 35 to 99 when it is 1, and 1 to 34 when it is 0. Weeks worked play no part. | Clear |
+| `wkswork` | Weeks worked last year, 1 to 52. | Clear |
+| `hrswk` | Hours worked per week, 1 to 99. The 99 may be a cap. Not known if these are usual or actual hours. | Check |
+| `incwage_real` | Yearly wage and salary income, in 2025 dollars. | Clear |
+| `wkearn_real` | Weekly earnings, in 2025 dollars. Not known how it was built. | Check |
+| `hrwage_real` | Hourly wage, in 2025 dollars. No missing values. It runs from 0.0006 to 603,445 dollars an hour, so it must be trimmed. Not known how it was built. | Check |
+| `educ5`, `educ5_label` | Education, 5 groups. The codes have not been printed yet. | Check |
+| `raceeth`, `raceeth_label` | 1 = Hispanic, 2 = White, 3 = Black, 4 = Other. Some rows are missing. The four flags below never overlap, so White and Black most likely mean non-Hispanic. | Check |
+| `hispanic`, `white`, `black`, `other_race` | 0/1 flags that never overlap. 26,041 rows have none of the four set, probably the rows where `raceeth` is missing (not checked). Use `raceeth` instead. | Clear |
+| `marst3`, `marst3_label` | Marital status, 3 groups. The codes have not been printed yet. | Check |
+| `nchild_cat`, `nchild_cat_label` | 0, 1, 2, or 3+ children. | Clear |
+| `child_u5`, `child_u5_label` | Child under 5, coded 1 or 0. The labels have not been printed yet. | Check |
+| `occ6`, `occ6_label` | Occupation, 6 groups. The codes have not been printed yet. | Check |
+| `classwkr3`, `classwkr3_label` | 1 = Private, 2 = Government. The name says 3 groups but the file has only these 2, and none are missing. The third group (probably self-employed) is not in the file. | Check |
+| `region4`, `region4_label` | Census region, 4 groups. Not in the planned tables, so do not load it. | Clear |
+| `metro`, `metro_label` | 1 = In a metro area, 0 = Not in a metro area. Some rows are missing. | Check |
 | `*_label` columns | Text label for the code in the column with the same stem. | Clear |
 | `female_0`, `female_1`, `fulltime_0`, `fulltime_1`, and every other `name_number` column | 0/1 dummy columns, one per code. They repeat what the code column already says. Do not load them. | Clear |
 
 Load only the columns we need (use `usecols`), because the file is 1.6 GB.
 
+### Settled
+- Year: `year` is the income year.
+- Dollars: all `_real` wage columns are in 2025 dollars. No CPI adjustment needed.
+- Full-time: 35 or more hours a week (IPUMS). There is no full-year rule, so a person who worked 1 week at 40 hours counts as full-time.
+
 ### Open questions
-- Full-time: the file has a `fulltime` flag. Find out what hours and weeks it uses (look at the min of `hrswk` and `wkswork` when `fulltime` is 1).
-- 2025 dollars: the file has `incwage_real`, `wkearn_real`, and `hrwage_real`. Find out the base year. If it is not 2025, adjust it ourselves.
-- Hourly wage: `hrwage_real` is already built. Find out how (yearly wage divided by weeks times hours?) and check it against the other columns.
-- Check for top-coded and missing values on every wage, hours, and weeks variable before any math.
+- Trimming: cut the bottom and top 1% within each year. For the "all workers" table, do we take the cutoffs from all workers or from full-time workers only? Are the cutoffs weighted with `asecwt`? Waiting on the user.
+- Class of worker: why does `classwkr3` have only Private and Government? Were the self-employed removed on purpose? Waiting on the user.
+- Hourly wage: find out how `hrwage_real` and `wkearn_real` were built. Test it against `incwage_real` divided by weeks and hours.
+- Missing values: count the missing rows in `raceeth` and `metro` (and in every grouping column) before the group tables.
+- Top codes: check `hrswk` at 99, and the extremes of `hrwage_real`, before any math.
+- Print the codes for `educ5`, `marst3`, `occ6`, and `child_u5`.
 
 ## Code rules
 - Write simple code. Pick the plain way over the clever way.
